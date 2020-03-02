@@ -31,6 +31,10 @@ std::vector<Token> Scanner::PerformScan(std::string text)
             case '(':
                 tokens.push_back(Token(text.substr(counter, 1), lparen));
                 break;
+			case ')':
+				tokens.push_back(Token(text.substr(counter, 1), rparen));
+				break;
+			case m
             case '\r':
             case '\n':
             case ' ':
