@@ -13,7 +13,7 @@ public:
     Scanner();
 
     std::vector<Token> PerformScan(std::string programText);
-    int ScanUntilEndOfComment(int counter, std::string &text);
+	Token checkKeyword(std::string keyword, TokenType type, std::string& program, int& counter);
 
 };
 
