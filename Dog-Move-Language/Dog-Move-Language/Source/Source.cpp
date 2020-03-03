@@ -6,7 +6,9 @@
 //[REFERENCES]
 // The OOP structure of this assignemnet is adapted/copied from the submitted assignment #3
 // Code Location ->  https://github.com/makrasnov100/Adhoc-Scanner-Parser
-
+// Substring parameters -> http://www.cplusplus.com/reference/string/string/substr/
+// String constructor for char conversion -> https://stackoverflow.com/questions/17201590/c-convert-from-1-char-to-string
+// Unordered map methods -> http://www.cplusplus.com/reference/unordered_map/unordered_map/find/
 
 
 #include "Scanner.h"
@@ -16,11 +18,12 @@
 #include <iomanip>
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 int main()
 {
     //TODO Same as enum in token.h
-    std::string tokenStr[] = {"assign", "plus", "minus", "times", "division", "lparen", "rparen", "id", "read", "write", "number", "error", "end"};
+    std::string tokenStr[] = { "lparen", "rparen", "take", "drop", "move", "turn", "var", "id", "assignOp", "count", "dir", "error", "end"};
 
     //Setup compiler objects
     Scanner scanner;
@@ -28,11 +31,18 @@ int main()
 
     //Setup program to compile
     std::string programText =
-        "read A\n"
-        "read B\n"
-        "sum := (A + B)\n"
-        "write sum\n"
-        "write sum / 2\n";
+        "var $rightgo\n"
+        "$rightgo := 2\n"
+        "move(2)\n"
+        "take\n"
+        "turn(l)\n"
+        "move(4)\n"
+        "turn(r)\n"
+        "move(2)\n"
+        "var $coke\n"
+        "var $steak\n"
+        "var $meat\n"
+        "drop";
 
     //Begin Compilation
     std::vector<Token> tokens = scanner.PerformScan(programText);
@@ -48,10 +58,14 @@ int main()
     }
 
     std::cout << "----------------------------------------------- " << std::endl;
-    std::cout << "Program trace of matches from parser: " << std::endl;
-    parser.PerformParse(tokens);
+    std::cout << "Resulting of program parsing: " << std::endl;
+    std::unordered_map<std::string, SymbolTableEntry> symbolTable = parser.PerformParse(tokens);
 
-    //TODO add tracking of symbol table for id declarations
+    std::cout << "----------------------------------------------- " << std::endl;
+    std::cout << "Final symbol table: " << std::endl;
+    std::cout << "identifier: index " << std::endl;
+    for (auto& x : symbolTable)
+        std::cout << x.first << ": " << std::to_string(x.second.index) << std::endl;
 
     return 0;
 }

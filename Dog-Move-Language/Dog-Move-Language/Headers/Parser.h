@@ -1,46 +1,34 @@
 #ifndef PARSER_H
 #define PARSER_H
 
+#include "SymbolTableEntry.h"
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 enum MsgType {Info,Warning,Error,Success};
 
 class Parser
 {
 private:
-	int level;
 	bool showParseWarnings;
-	bool makeCppTranslation;
-
-	std::string cppTranslation;
-	std::string cppPrefix;
-	std::string cppSuffix;
+	std::unordered_map<std::string, SymbolTableEntry> symbolTable = {};
+	
 public:
 
     Parser(bool showParseWarnings, bool makeCppTranslation);
 
-	void PerformParse(std::vector<Token> &programText);
+	std::unordered_map<std::string, SymbolTableEntry> PerformParse(std::vector<Token> &programText);
 
 	//Check for specific term types
-	void Parser::ProccessProgram(int& idx, std::vector<Token> &tokens);
-	void Parser::ProccessStmtList(int& idx, std::vector<Token> &tokens);
-	void Parser::ProccessStmt(int& idx, std::vector<Token> &tokens);
-	void Parser::ProccessExpr(int& idx, std::vector<Token> &tokens);
-	void Parser::ProccessTermTail(int& idx, std::vector<Token> &tokens);
-	void Parser::ProccessTerm(int& idx, std::vector<Token> &tokens);
-	void Parser::ProccessFactorTail(int& idx, std::vector<Token> &tokens);
-	void Parser::ProccessFactor(int& idx, std::vector<Token> &tokens);
-	void Parser::ProccessAddOp(int& idx, std::vector<Token> &tokens);
-	void Parser::ProccessMultOp(int& idx, std::vector<Token> &tokens);
-	void Parser::ProccessEnd(int& idx, std::vector<Token> &tokens);
-
-	//Translation functions
-	void AddTranslatedInput(int idx, std::vector<Token> &identifierTarget);
-	void ExportTranslation(std::vector<Token>& tokens);
-
-	//Console Utilities
-	void Parser::PreExitMessage(MsgType type, std::string msg);
+	void ProccessProgram(int& idx, std::vector<Token> &tokens);
+	void ProccessStmtList(int& idx, std::vector<Token> &tokens);
+	void ProccessStmt(int& idx, std::vector<Token> &tokens);
+	void ProccessMove(int& idx, std::vector<Token> &tokens);
+	void ProccessTurn(int& idx, std::vector<Token>& tokens);
+	void ProccessDecl(int& idx, std::vector<Token>& tokens);
+	void ProccessAssign(int& idx, std::vector<Token>& tokens);
+	void ProccessEnd(int& idx, std::vector<Token>& tokens);
 };
 
 #endif

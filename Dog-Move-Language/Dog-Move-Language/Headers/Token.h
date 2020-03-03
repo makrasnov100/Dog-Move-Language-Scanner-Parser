@@ -3,7 +3,7 @@
 
 #include <string>
 
-enum TokenType { lparen, rparen, take, drop, move, turn, var, id, assignOp, error, end};
+enum TokenType { lparen, rparen, take, drop, move, turn, var, id, assignOp, count, dir, error, end};
 
 class Token
 {

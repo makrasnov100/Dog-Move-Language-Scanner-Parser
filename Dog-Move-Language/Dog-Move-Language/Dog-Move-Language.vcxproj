@@ -156,6 +156,7 @@
   <ItemGroup>
     <ClInclude Include="Headers\Parser.h" />
     <ClInclude Include="Headers\Scanner.h" />
+    <ClInclude Include="Headers\SymbolTableEntry.h" />
     <ClInclude Include="Headers\Token.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
